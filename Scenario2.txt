@@ -1,0 +1,74 @@
+double deposit(double currentBalance, double amount) {
+  // Validate deposit amount
+  if (amount > 0) {
+    double newBalance = currentBalance + amount;
+    print('Deposited: ₱${amount.toStringAsFixed(2)}');
+    print('New Balance: ₱${newBalance.toStringAsFixed(2)}');
+    return newBalance;
+  } else {
+    print('Invalid deposit amount. Must be greater than 0.');
+    return currentBalance;
+  }
+}
+
+// Function to withdraw money and return new balance
+double withdraw(double currentBalance, double amount) {
+  // Validate withdrawal amount: amount must be positive
+  if (amount <= 0) {
+    print('Invalid withdrawal amount. Must be greater than 0.');
+    return currentBalance;
+  }
+  else if (amount > currentBalance) {
+    print('Insufficient balance. You only have ₱${currentBalance.toStringAsFixed(2)}.');
+    return currentBalance;
+  }
+  else {
+    double newBalance = currentBalance - amount;
+    print('Withdrew: ₱${amount.toStringAsFixed(2)}');
+    print('New Balance: ₱${newBalance.toStringAsFixed(2)}');
+    return newBalance;
+  }
+}
+
+void main() {
+  // Variable to store account balance, initialized to 1000.0
+  double accountBalance = 1000.0;
+
+  // Variable to store user's choice for ATM operation
+  // 1 = Check Balance, 2 = Deposit, 3 = Withdraw
+  int userChoice = 2; 
+
+
+  double transactionAmount = 250.0; 
+
+  print('=== Welcome to Simple ATM ===');
+
+  // Determine and display the current operation based on userChoice
+  String currentOperation;
+  if (userChoice == 1) {
+    currentOperation = 'Check Balance';
+  } else if (userChoice == 2) {
+    currentOperation = 'Deposit';
+  } else if (userChoice == 3) {
+    currentOperation = 'Withdraw';
+  } else {
+    currentOperation = 'Invalid Choice'; 
+  }
+  print('Current operation: $currentOperation');
+
+  // Perform the selected operation based on userChoice
+  if (userChoice == 1) {
+    // If user chooses to check balance, print the current balance
+    print('Your current balance is: ₱${accountBalance.toStringAsFixed(2)}');
+  } else if (userChoice == 2) {
+    // If user chooses to deposit, call the deposit function
+    // The returned new balance updates accountBalance
+    accountBalance = deposit(accountBalance, transactionAmount);
+  } else if (userChoice == 3) {
+    accountBalance = withdraw(accountBalance, transactionAmount);
+  } else {
+    print('Invalid choice selected. Please choose 1, 2, or 3.');
+  }
+
+  print('Final Balance: ₱${accountBalance.toStringAsFixed(2)}');
+}
